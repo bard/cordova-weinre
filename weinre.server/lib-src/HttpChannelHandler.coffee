@@ -29,10 +29,10 @@ module.exports = utils.registerClass class HttpChannelHandler
     #---------------------------------------------------------------------------
     constructor: (@pathPrefix) ->
     
-        if @pathPrefix == '/ws/client'
+        if @pathPrefix == '/_weinre/ws/client'
             @isClient = true
             
-        else if @pathPrefix == '/ws/target'
+        else if @pathPrefix == '/_weinre/ws/target'
             @isClient = false
             
         else

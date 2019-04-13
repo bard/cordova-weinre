@@ -125,7 +125,7 @@ module.exports = class Target
                 setTimeout (=> this.onLoaded()), 20
 
 #        MessageDispatcher.verbose(true)
-        messageDispatcher = new MessageDispatcher(window.WeinreServerURL + "ws/target", window.WeinreServerId)
+        messageDispatcher = new MessageDispatcher(window.WeinreServerURL + "_weinre/ws/target", window.WeinreServerId)
         Weinre.messageDispatcher = messageDispatcher
 
         Weinre.wi = {}

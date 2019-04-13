@@ -12,9 +12,9 @@ channelManager = require('./channelManager');
 module.exports = utils.registerClass(HttpChannelHandler = (function() {
   function HttpChannelHandler(pathPrefix) {
     this.pathPrefix = pathPrefix;
-    if (this.pathPrefix === '/ws/client') {
+    if (this.pathPrefix === '/_weinre/ws/client') {
       this.isClient = true;
-    } else if (this.pathPrefix === '/ws/target') {
+    } else if (this.pathPrefix === '/_weinre/ws/target') {
       this.isClient = false;
     } else {
       utils.pitch("invalid pathPrefix: " + this.pathPrefix);

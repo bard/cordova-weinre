@@ -118,8 +118,8 @@ checkForDeath = ->
 startServer = () ->
     options = utils.options
 
-    clientHandler = new HttpChannelHandler('/ws/client')
-    targetHandler = new HttpChannelHandler('/ws/target')
+    clientHandler = new HttpChannelHandler('/_weinre/ws/client')
+    targetHandler = new HttpChannelHandler('/_weinre/ws/target')
     
     channelManager.initialize()
     
@@ -156,14 +156,20 @@ startServer = () ->
 
     app.use express.staticCache(staticCacheOptions)
     app.use express.static(options.staticWebDir)
-    
+
+    wrapperApp = express.createServer()
+    wrapperApp.get /^\/_weinre$/, (request, response) ->
+        response.redirect('/_weinre/', 301)
+
+    wrapperApp.use '/_weinre/', app
+
     if options.boundHost == '-all-'
         utils.log "starting server at http://localhost:#{options.httpPort}"
-        app.listen options.httpPort
+        wrapperApp.listen options.httpPort
         
     else
         utils.log "starting server at http://#{options.boundHost}:#{options.httpPort}"
-        app.listen options.httpPort, options.boundHost
+        wrapperApp.listen options.httpPort, options.boundHost
 
 #-------------------------------------------------------------------------------
 getStaticWebDir = () ->

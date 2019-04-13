@@ -117,10 +117,10 @@ checkForDeath = function() {
 };
 
 startServer = function() {
-  var app, clientHandler, favIcon, options, staticCacheOptions, targetHandler;
+  var app, clientHandler, favIcon, options, staticCacheOptions, targetHandler, wrapperApp;
   options = utils.options;
-  clientHandler = new HttpChannelHandler('/ws/client');
-  targetHandler = new HttpChannelHandler('/ws/target');
+  clientHandler = new HttpChannelHandler('/_weinre/ws/client');
+  targetHandler = new HttpChannelHandler('/_weinre/ws/target');
   channelManager.initialize();
   favIcon = "" + options.staticWebDir + "/images/weinre-icon-32x32.png";
   staticCacheOptions = {
@@ -160,12 +160,17 @@ startServer = function() {
   }));
   app.use(express.staticCache(staticCacheOptions));
   app.use(express["static"](options.staticWebDir));
+  wrapperApp = express.createServer();
+  wrapperApp.get(/^\/_weinre$/, function(request, response) {
+    return response.redirect('/_weinre/', 301);
+  });
+  wrapperApp.use('/_weinre/', app);
   if (options.boundHost === '-all-') {
     utils.log("starting server at http://localhost:" + options.httpPort);
-    return app.listen(options.httpPort);
+    return wrapperApp.listen(options.httpPort);
   } else {
     utils.log("starting server at http://" + options.boundHost + ":" + options.httpPort);
-    return app.listen(options.httpPort, options.boundHost);
+    return wrapperApp.listen(options.httpPort, options.boundHost);
   }
 };
 
