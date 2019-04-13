@@ -269,7 +269,7 @@ To update the weinre dependencies, use
         </exec>
 
         <echo message="transportd-izing modules"/>
-        <exec executable="python" failonerror="true" failifexecutionfails="true">
+        <exec executable="python2" failonerror="true" failifexecutionfails="true">
             <arg  file="scripts/module2amd.py"/>
             <arg value="--quiet"/>
             <arg value="--out"/>
@@ -406,13 +406,13 @@ To update the weinre dependencies, use
             <arg value="MouseEvent"/>
         </simple-idl2json>
 
-        <exec executable="python" failonerror="true" failifexecutionfails="true">
+        <exec executable="python2" failonerror="true" failifexecutionfails="true">
             <arg file="scripts/collect-all-json-idl.py"/>
             <arg file="${CACHED}/json-idl/all-json-idls.js"/>
             <arg file="${CACHED}/json-idl"/>
         </exec>
 
-        <exec executable="python" failonerror="true" failifexecutionfails="true">
+        <exec executable="python2" failonerror="true" failifexecutionfails="true">
             <arg file="scripts/collect-all-json-idl.py"/>
             <arg value="-min"/>
             <arg file="${CACHED}/json-idl/all-json-idls-min.js"/>
@@ -429,7 +429,7 @@ To update the weinre dependencies, use
 
         <mkdir dir="${WEB}/target"/>
 
-        <exec executable="python" failonerror="true" failifexecutionfails="true">
+        <exec executable="python2" failonerror="true" failifexecutionfails="true">
             <arg file="scripts/build-target-scripts.py"/>
             <arg file="${WEB}"/>
             <arg file="${WEB}/target"/>
@@ -456,7 +456,7 @@ To update the weinre dependencies, use
             <fileset dir="${WEB}/client" includes="**/*.js"/>
         </replaceregexp>
 
-        <exec executable="python" failonerror="true" failifexecutionfails="true">
+        <exec executable="python2" failonerror="true" failifexecutionfails="true">
             <arg file="scripts/build-client-html.py"/>
             <arg file="${WEB}"/>
         </exec>
@@ -622,7 +622,7 @@ To update the weinre dependencies, use
        <attribute name="oDir"/>
        <element name="args" optional="true" implicit="true"/>
        <sequential>
-           <exec executable="python" failonerror="true" failifexecutionfails="true">
+           <exec executable="python2" failonerror="true" failifexecutionfails="true">
                <arg file="scripts/simple-idl2json.py"/>
                <args/>
                <arg value="--validate"/>
